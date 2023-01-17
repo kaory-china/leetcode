@@ -41,4 +41,6 @@ public class QuickSort {
     nums[secondIndex] = temp;
   }
 
+  // next sqap 0 e i 0 (dentro do for)
+
 }
