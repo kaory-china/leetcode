@@ -1,4 +1,4 @@
-package easy;// 04/12/2022
+package blind75.arrays;// 04/12/2022
 // https://leetcode.com/problems/contains-duplicate/
 
 import java.util.Arrays;
