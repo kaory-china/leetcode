@@ -5,25 +5,26 @@ import java.util.Arrays;
 public class ProductOfArrayExceptSelf {
 
   public static void main(String[] args) {
-    System.out.println(Arrays.toString(productExceptSelf(new int[]{1,2,3,4})));
-    System.out.println(Arrays.toString(productExceptSelf(new int[]{-1,1,0,-3,3})));
+    System.out.println(Arrays.toString(productExceptSelf(new int[]{1, 2, 3, 4})));
+    System.out.println(Arrays.toString(productExceptSelf(new int[]{-1, 1, 0, -3, 3})));
   }
 
   public static int[] productExceptSelf(int[] nums) {
     int[] answer = new int[nums.length];
 
     for (int i = 0; i < nums.length; i++) {
-      int product = 1;
-      for (int j = 0; j < nums.length; j++) {
-        if (i != j) {
-          product *= nums[j];
-        }
-        if (product == 0) {
-          break;
-        }
+      int rightProduct = 1;
+      int leftProduct = 1;
+
+      for (int r = 0; r < i; r++) {
+        rightProduct *= nums[r];
       }
-      answer[i] = product;
+      for (int l = i + 1; l < nums.length; l++) {
+        leftProduct *= nums[l];
+      }
+      answer[i] = rightProduct * leftProduct;
     }
+
     return answer;
   }
 }
