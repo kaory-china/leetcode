@@ -1,4 +1,4 @@
-package easy;// 06/12/2022
+package blind75.arrays;// 06/12/2022
 // https://leetcode.com/problems/valid-anagram/
 
 import java.util.ArrayList;
