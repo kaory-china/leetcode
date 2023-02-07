@@ -1,5 +1,3 @@
 Next challenges:  
-https://leetcode.com/problems/missing-number/
-
-- a cada dez easy, pegar um medium
-
+https://leetcode.com/problems/excel-sheet-column-number/
+https://leetcode.com/problems/subsets/

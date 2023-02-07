@@ -12,17 +12,25 @@ public class ProductOfArrayExceptSelf {
   public static int[] productExceptSelf(int[] nums) {
     int[] answer = new int[nums.length];
 
-    for (int i = 0; i < nums.length; i++) {
-      int rightProduct = 1;
-      int leftProduct = 1;
+    int[] preffixes = new int[nums.length];
+    int[] suffixes = new int[nums.length];
 
-      for (int r = 0; r < i; r++) {
-        rightProduct *= nums[r];
+    for (int i = 0; i < nums.length; i++) {
+      if (i == 0) {
+        preffixes[0] = 1;
+      } else {
+        preffixes[i] = preffixes[i - 1] * nums[i - 1];
       }
-      for (int l = i + 1; l < nums.length; l++) {
-        leftProduct *= nums[l];
+    }
+    for (int i = nums.length - 1; i >= 0; i--) {
+      if (i == nums.length - 1) {
+        suffixes[nums.length - 1] = 1;
+      } else {
+        suffixes[i] = suffixes[i + 1] * nums[i + 1];
       }
-      answer[i] = rightProduct * leftProduct;
+    }
+    for (int i = 0; i < nums.length; i++) {
+      answer[i] = preffixes[i] * suffixes[i];
     }
 
     return answer;
