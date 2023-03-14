@@ -1,11 +1,8 @@
-public class MergeTwoSortedLists {
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-  //
-  // comparo primeiro elemento da lista 1 com primeiro elemento da lista 2
-  // adiciono no final da lista o menor elemento
-  // passo para o proximo elemento da lista que originou o menor elemento
-  // adiciono o menor elemento no final da lista final
-  // caso termine de percorrer alguma lista, adiciono os elementos restantes ao final da lista final
+public class MergeTwoSortedListsV {
 
   public static void main(String[] args) {
     ListNode ln3 = new ListNode(4, null);
@@ -16,53 +13,121 @@ public class MergeTwoSortedLists {
     ListNode ln5 = new ListNode(3, ln4);
     ListNode ln6 = new ListNode(1, ln5);
 
-    System.out.println(mergeTwoLists(ln1, ln6));
+    System.out.println(mergeTwoListsV2(ln1, ln6));
   }
 
-  public static ListNode mergeTwoLists(ListNode list1, ListNode list2) {
-    ListNode firstNode = null;
+  public static ListNode mergeTwoLists(ListNode ln1, ListNode ln2) {
+    Map<String, ListNode> headTail = new HashMap<>();
+    ListNode head = null;
+    ListNode tail = null;
+    headTail.put("head", head);
+    headTail.put("tail", tail);
 
-    while (list1 != null && list2 != null) {
-      if (list1.val < list2.val) {
-        firstNode = addNode(firstNode, list1.val);
-        list1 = list1.next;
+    while (ln1 != null && ln2 != null) {
+      if (ln1.val < ln2.val) {
+        head = addNode(head, ln1.val);
+        ln1 = ln1.next;
       } else {
-        firstNode = addNode(firstNode, list2.val);
-        list2 = list2.next;
+        head = addNode(head, ln2.val);
+        ln2 = ln2.next;
       }
     }
-    if (list1 == null && list2 != null) {
-      firstNode = addNode(firstNode, list2.val);
-      list2 = list2.next;
-      while (list2 != null) {
-        firstNode = addNode(firstNode, list2.val);
-        list2 = list2.next;
+    if (ln1 == null) {
+      while (ln2 != null) {
+        head = addNode(head, ln2.val);
+        ln2 = ln2.next;
       }
-
-      return firstNode;
+      printNodes(head);
+      return head;
     }
-    if (list2 == null && list1 != null) {
-      firstNode = addNode(firstNode, list1.val);
-      list1 = list1.next;
-      while (list1 != null) {
-        firstNode = addNode(firstNode, list1.val);
-        list1 = list1.next;
+    if (ln2 == null) {
+      while (ln1 != null) {
+        head = addNode(head, ln1.val);
+        ln1 = ln1.next;
       }
-      return firstNode;
+      printNodes(head);
+      return head;
     }
-    return firstNode;
+    return head;
   }
 
-  private ListNode addNode(ListNode list, int val) {
-    if (list == null) {
+  private static ListNode addNode(ListNode node, int val) {
+    if (node == null) {
       return new ListNode(val);
     }
-    ListNode p = list;
+    ListNode p = node;
     while (p.next != null) {
       p = p.next;
     }
-    p.next = new ListNode(val);
-    return list;
+    ListNode last = new ListNode(val);
+    p.next = last;
+    return node;
+  }
+
+  //////////////////////////////////
+  public static ListNode mergeTwoListsV2(ListNode ln1, ListNode ln2) {
+    Map<String, ListNode> headTail = new HashMap<>();
+    ListNode head = null;
+    ListNode tail = null;
+    headTail.put("head", head);
+    headTail.put("tail", tail);
+
+    while (ln1 != null && ln2 != null) {
+      if (ln1.val < ln2.val) {
+        headTail = addNode(headTail, ln1.val);
+        ln1 = ln1.next;
+      } else {
+        headTail = addNode(headTail, ln2.val);
+        ln2 = ln2.next;
+      }
+    }
+    if (ln1 == null) {
+      while (ln2 != null) {
+        headTail = addNode(headTail, ln2.val);
+        ln2 = ln2.next;
+      }
+      printNodes(headTail.get("head"));
+      return headTail.get("head");
+    }
+    if (ln2 == null) {
+      while (ln1 != null) {
+        headTail = addNode(headTail, ln1.val);
+        ln1 = ln1.next;
+      }
+      printNodes(headTail.get("head"));
+      return headTail.get("head");
+    }
+    return headTail.get("head");
+  }
+
+  private static Map<String, ListNode> addNode(Map<String, ListNode> headTail, int val) {
+
+    if (headTail.get("head") == null) {
+      ListNode head = new ListNode(val);
+      headTail.put("head", head);
+      return headTail;
+    }
+
+    if (headTail.get("tail") == null) {
+      ListNode head = headTail.get("head");
+      ListNode newNode = new ListNode(val);
+      head.next = newNode;
+      headTail.put("tail", newNode);
+      return headTail;
+    }
+
+    ListNode lastNode = headTail.get("tail");
+    ListNode newNode = new ListNode(val);
+    lastNode.next = newNode;
+    headTail.put("tail", newNode);
+    return headTail;
+  }
+
+  private static void printNodes(ListNode node) {
+    while (node != null) {
+      System.out.println("LIST NODE VAL = " + node.val);
+      node = node.next;
+    }
   }
 
 }

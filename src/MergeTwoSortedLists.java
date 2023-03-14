@@ -53,7 +53,7 @@ public class MergeTwoSortedLists {
     return firstNode;
   }
 
-  private ListNode addNode(ListNode list, int val) {
+  private static ListNode addNode(ListNode list, int val) {
     if (list == null) {
       return new ListNode(val);
     }
